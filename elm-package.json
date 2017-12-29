@@ -1,10 +1,10 @@
 {
-    "version": "1.0.0",
+    "version": "0.1.0",
     "summary": "Blockchain for Uppcoin",
     "repository": "https://github.com/UppCoinFoundation/uppchain.git",
     "license": "None",
     "source-directories": [
-        "src/"
+        "src/", "app/"
     ],
     "native-modules": true,
     "exposed-modules": [],
