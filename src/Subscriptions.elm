@@ -7,22 +7,20 @@
 --Created: Fri Dec 29 16:26:28 2017 (+0100)
 --Version:
 --Package-Requires: ()
---Last-Updated: Fri Dec 29 17:15:33 2017 (+0100)
+--Last-Updated: Fri Dec 29 19:41:22 2017 (+0100)
 --          By: Manuel Schneckenreither
---    Update #: 21
+--    Update #: 27
 --URL:
 --Doc URL:
 --Keywords:
 --Compatibility:
 --
 --
-
 --Commentary:
 --
 --
 --
 --
-
 --Change Log:
 --
 --
@@ -31,7 +29,6 @@
 --
 --
 --
-
 --Code:
 
 
@@ -39,12 +36,16 @@ module Subscriptions exposing (..)
 
 import Commands exposing (..)
 import Model exposing (..)
-import WebRTCPort exposing (disableButton)
+import Network.WebRTCPorts exposing (disableTextarea)
+
 
 subscriptions : Model -> Sub Command
 subscriptions model =
-  Sub.batch [ disableButton DisableDataChannelSend
-            ]
+    Sub.batch
+        [ disableTextarea DisableDataChannelSend
+        ]
+
+
 
 --
 --Subscriptions.elm ends here

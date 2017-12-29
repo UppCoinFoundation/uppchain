@@ -7,22 +7,20 @@
 --Created: Fri Dec 29 13:14:33 2017 (+0100)
 --Version:
 --Package-Requires: ()
---Last-Updated: Fri Dec 29 18:14:03 2017 (+0100)
+--Last-Updated: Fri Dec 29 19:42:14 2017 (+0100)
 --          By: Manuel Schneckenreither
---    Update #: 61
+--    Update #: 75
 --URL:
 --Doc URL:
 --Keywords:
 --Compatibility:
 --
 --
-
 --Commentary:
 --
 --
 --
 --
-
 --Change Log:
 --
 --
@@ -31,32 +29,41 @@
 --
 --
 --
-
 --Code:
 
 
-port module Main exposing (main)
+module Main exposing (main)
 
-import Model exposing (Model)
-import View exposing (view)
-import Subscriptions exposing (..)
 import Commands exposing (..)
-import Update exposing (..)
-
-
 import Html exposing (Html, program, fieldset, input, label, text)
--- import Html.Attributes exposing (style, type_)
+import Model exposing (Model)
+import Subscriptions exposing (..)
+import Update exposing (..)
+import View exposing (view)
 
 
 main : Program Never Model Command
-main = program { init=init, update=update, view=view, subscriptions=subscriptions}
+main =
+    program { init = init, update = update, view = view, subscriptions = subscriptions }
 
-init : (Model, Cmd Command)
-init = (model , Cmd.none)
+
+
+-- Initial state
+
+
+init : ( Model, Cmd Command )
+init =
+    ( model, Cmd.none )
+
+
 
 -- | Default model (starting poing for application)
+
+
 model : Model
-model = Model 0 True
+model =
+    Model 0 True
+
 
 
 --

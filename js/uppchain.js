@@ -3168,6 +3168,7 @@ var _elm_lang$core$Platform$Task = {ctor: 'Task'};
 var _elm_lang$core$Platform$ProcessId = {ctor: 'ProcessId'};
 var _elm_lang$core$Platform$Router = {ctor: 'Router'};
 
+var _UppCoinFoundation$uppchain$Commands$CreateConnection = {ctor: 'CreateConnection'};
 var _UppCoinFoundation$uppchain$Commands$DisableDataChannelSend = function (a) {
 	return {ctor: 'DisableDataChannelSend', _0: a};
 };
@@ -8188,6 +8189,53 @@ var _UppCoinFoundation$uppchain$Model$Model = F2(
 		return {counter: a, dataChannelSendDisabled: b};
 	});
 
+var _UppCoinFoundation$uppchain$Network_WebRTCPorts$disableTextarea = _elm_lang$core$Native_Platform.incomingPort('disableTextarea', _elm_lang$core$Json_Decode$bool);
+var _UppCoinFoundation$uppchain$Network_WebRTCPorts$createConnection = _elm_lang$core$Native_Platform.outgoingPort(
+	'createConnection',
+	function (v) {
+		return v;
+	});
+
+var _UppCoinFoundation$uppchain$Subscriptions$subscriptions = function (model) {
+	return _elm_lang$core$Platform_Sub$batch(
+		{
+			ctor: '::',
+			_0: _UppCoinFoundation$uppchain$Network_WebRTCPorts$disableTextarea(_UppCoinFoundation$uppchain$Commands$DisableDataChannelSend),
+			_1: {ctor: '[]'}
+		});
+};
+
+var _UppCoinFoundation$uppchain$Update$newCmd = function (msg) {
+	var _p0 = msg;
+	if (_p0.ctor === 'CreateConnection') {
+		return _UppCoinFoundation$uppchain$Network_WebRTCPorts$createConnection('asdf');
+	} else {
+		return _elm_lang$core$Platform_Cmd$none;
+	}
+};
+var _UppCoinFoundation$uppchain$Update$newModel = F2(
+	function (msg, model) {
+		var _p1 = msg;
+		switch (_p1.ctor) {
+			case 'Increment':
+				return A2(_UppCoinFoundation$uppchain$Model$setCounter, model.counter + 1, model);
+			case 'Decrement':
+				return A2(_UppCoinFoundation$uppchain$Model$setCounter, model.counter - 1, model);
+			case 'DisableDataChannelSend':
+				return A2(_UppCoinFoundation$uppchain$Model$setDataChannelSendDisabled, _p1._0, model);
+			default:
+				return model;
+		}
+	});
+var _UppCoinFoundation$uppchain$Update$update = F2(
+	function (msg, model) {
+		return {
+			ctor: '_Tuple2',
+			_0: A2(_UppCoinFoundation$uppchain$Update$newModel, msg, model),
+			_1: _UppCoinFoundation$uppchain$Update$newCmd(msg)
+		};
+	});
+
 var _elm_lang$html$Html_Events$keyCode = A2(_elm_lang$core$Json_Decode$field, 'keyCode', _elm_lang$core$Json_Decode$int);
 var _elm_lang$html$Html_Events$targetChecked = A2(
 	_elm_lang$core$Json_Decode$at,
@@ -8324,8 +8372,165 @@ var _UppCoinFoundation$uppchain$View$scripts = {
 		_1: {ctor: '[]'}
 	}
 };
+var _UppCoinFoundation$uppchain$View$close = _elm_lang$html$Html$text('Close');
+var _UppCoinFoundation$uppchain$View$send = _elm_lang$html$Html$text('Send');
+var _UppCoinFoundation$uppchain$View$start = _elm_lang$html$Html$text('Start');
 var _UppCoinFoundation$uppchain$View$html = function (model) {
-	return {ctor: '[]'};
+	return {
+		ctor: '::',
+		_0: A2(
+			_elm_lang$html$Html$div,
+			{ctor: '[]'},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$button,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Events$onClick(_UppCoinFoundation$uppchain$Commands$Decrement),
+						_1: {ctor: '[]'}
+					},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text('-'),
+						_1: {ctor: '[]'}
+					}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$div,
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html$text(
+								_elm_lang$core$Basics$toString(model.counter)),
+							_1: {ctor: '[]'}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$button,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onClick(_UppCoinFoundation$uppchain$Commands$Increment),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('+'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				}
+			}),
+		_1: {
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _UppCoinFoundation$uppchain$View$myStyle,
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$textarea,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$id(_UppCoinFoundation$uppchain$Html_Ids$dataChannelSend),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$disabled(model.dataChannelSendDisabled),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$placeholder('Press Start, enter some text, then press Send.'),
+									_1: {ctor: '[]'}
+								}
+							}
+						},
+						{ctor: '[]'}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$textarea,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$id(_UppCoinFoundation$uppchain$Html_Ids$dataChannelReceive),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$disabled(true),
+									_1: {ctor: '[]'}
+								}
+							},
+							{ctor: '[]'}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$div,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$id(_UppCoinFoundation$uppchain$Html_Ids$buttons),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: A2(
+										_elm_lang$html$Html$button,
+										{
+											ctor: '::',
+											_0: _elm_lang$html$Html_Attributes$id(_UppCoinFoundation$uppchain$Html_Ids$startButton),
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$html$Html_Events$onClick(_UppCoinFoundation$uppchain$Commands$CreateConnection),
+												_1: {ctor: '[]'}
+											}
+										},
+										{
+											ctor: '::',
+											_0: _UppCoinFoundation$uppchain$View$start,
+											_1: {ctor: '[]'}
+										}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_elm_lang$html$Html$button,
+											{
+												ctor: '::',
+												_0: _elm_lang$html$Html_Attributes$id(_UppCoinFoundation$uppchain$Html_Ids$sendButton),
+												_1: {ctor: '[]'}
+											},
+											{
+												ctor: '::',
+												_0: _UppCoinFoundation$uppchain$View$send,
+												_1: {ctor: '[]'}
+											}),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_elm_lang$html$Html$button,
+												{
+													ctor: '::',
+													_0: _elm_lang$html$Html_Attributes$id(_UppCoinFoundation$uppchain$Html_Ids$closeButton),
+													_1: {ctor: '[]'}
+												},
+												{
+													ctor: '::',
+													_0: _UppCoinFoundation$uppchain$View$close,
+													_1: {ctor: '[]'}
+												}),
+											_1: {ctor: '[]'}
+										}
+									}
+								}),
+							_1: {ctor: '[]'}
+						}
+					}
+				}),
+			_1: {ctor: '[]'}
+		}
+	};
 };
 var _UppCoinFoundation$uppchain$View$view = function (model) {
 	return A2(
@@ -8336,44 +8541,11 @@ var _UppCoinFoundation$uppchain$View$view = function (model) {
 			_UppCoinFoundation$uppchain$View$html(model),
 			_UppCoinFoundation$uppchain$View$scripts));
 };
-var _UppCoinFoundation$uppchain$View$close = _elm_lang$html$Html$text('Close');
-var _UppCoinFoundation$uppchain$View$send = _elm_lang$html$Html$text('Send');
-var _UppCoinFoundation$uppchain$View$start = _elm_lang$html$Html$text('Start');
-
-var _UppCoinFoundation$uppchain$Update$update = F2(
-	function (msg, model) {
-		var newModel = function () {
-			var _p0 = msg;
-			switch (_p0.ctor) {
-				case 'Increment':
-					return A2(_UppCoinFoundation$uppchain$Model$setCounter, model.counter + 1, model);
-				case 'Decrement':
-					return A2(_UppCoinFoundation$uppchain$Model$setCounter, model.counter - 1, model);
-				default:
-					return A2(_UppCoinFoundation$uppchain$Model$setDataChannelSendDisabled, _p0._0, model);
-			}
-		}();
-		return {ctor: '_Tuple2', _0: newModel, _1: _elm_lang$core$Platform_Cmd$none};
-	});
 
 var _UppCoinFoundation$uppchain$Main$model = A2(_UppCoinFoundation$uppchain$Model$Model, 0, true);
 var _UppCoinFoundation$uppchain$Main$init = {ctor: '_Tuple2', _0: _UppCoinFoundation$uppchain$Main$model, _1: _elm_lang$core$Platform_Cmd$none};
-var _UppCoinFoundation$uppchain$Main$disableButton = _elm_lang$core$Native_Platform.incomingPort('disableButton', _elm_lang$core$Json_Decode$bool);
-var _UppCoinFoundation$uppchain$Main$subscriptions = function (model) {
-	return _elm_lang$core$Platform_Sub$batch(
-		{
-			ctor: '::',
-			_0: _UppCoinFoundation$uppchain$Main$disableButton(_UppCoinFoundation$uppchain$Commands$DisableDataChannelSend),
-			_1: {ctor: '[]'}
-		});
-};
 var _UppCoinFoundation$uppchain$Main$main = _elm_lang$html$Html$program(
-	{init: _UppCoinFoundation$uppchain$Main$init, update: _UppCoinFoundation$uppchain$Update$update, view: _UppCoinFoundation$uppchain$View$view, subscriptions: _UppCoinFoundation$uppchain$Main$subscriptions})();
-var _UppCoinFoundation$uppchain$Main$createConnection = _elm_lang$core$Native_Platform.outgoingPort(
-	'createConnection',
-	function (v) {
-		return v;
-	});
+	{init: _UppCoinFoundation$uppchain$Main$init, update: _UppCoinFoundation$uppchain$Update$update, view: _UppCoinFoundation$uppchain$View$view, subscriptions: _UppCoinFoundation$uppchain$Subscriptions$subscriptions})();
 
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};
