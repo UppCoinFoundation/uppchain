@@ -7,22 +7,20 @@
 --Created: Fri Dec 29 15:51:35 2017 (+0100)
 --Version:
 --Package-Requires: ()
---Last-Updated: Fri Dec 29 18:02:56 2017 (+0100)
+--Last-Updated: Sat Dec 30 13:05:47 2017 (+0100)
 --          By: Manuel Schneckenreither
---    Update #: 7
+--    Update #: 17
 --URL:
 --Doc URL:
 --Keywords:
 --Compatibility:
 --
 --
-
 --Commentary:
 --
 --
 --
 --
-
 --Change Log:
 --
 --
@@ -31,19 +29,25 @@
 --
 --
 --
-
 --Code:
 
 
-module Commands exposing
-    ( Command(..)
-    )
+module Commands
+    exposing
+        ( Command(..)
+        )
+
+import Network.WebRTC.RTCPeerConnection exposing (RTCPeerConnection)
 
 
-type Command = Increment
-             | Decrement
-             | DisableDataChannelSend Bool
-             | CreateConnection
+type Command
+    = Increment
+    | Decrement
+    | DisableDataChannelSend Bool
+    | CreateConnection
+    | NewRTCPeerConnection (RTCPeerConnection String)
+    | UpdatedRTCPeerConnection (RTCPeerConnection String)
+
 
 
 --

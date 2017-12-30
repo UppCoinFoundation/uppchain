@@ -7,9 +7,9 @@
 --Created: Fri Dec 29 13:42:45 2017 (+0100)
 --Version:
 --Package-Requires: ()
---Last-Updated: Fri Dec 29 20:32:56 2017 (+0100)
+--Last-Updated: Sat Dec 30 10:52:16 2017 (+0100)
 --          By: Manuel Schneckenreither
---    Update #: 104
+--    Update #: 106
 --URL:
 --Doc URL:
 --Keywords:
@@ -105,6 +105,8 @@ html model =
             , button [ id closeButton ] [ close ]
             ]
         ]
+    , div []
+        [ text (toString model.rtcPeerConnetions) ]
 
     -- , div [id "main"] []
     ]

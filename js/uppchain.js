@@ -3168,6 +3168,61 @@ var _elm_lang$core$Platform$Task = {ctor: 'Task'};
 var _elm_lang$core$Platform$ProcessId = {ctor: 'ProcessId'};
 var _elm_lang$core$Platform$Router = {ctor: 'Router'};
 
+var _UppCoinFoundation$uppchain$Network_WebRTC_RTCPeerConnection$RTCPeerConnection = function (a) {
+	return function (b) {
+		return function (c) {
+			return function (d) {
+				return function (e) {
+					return function (f) {
+						return function (g) {
+							return function (h) {
+								return function (i) {
+									return function (j) {
+										return function (k) {
+											return function (l) {
+												return function (m) {
+													return function (n) {
+														return function (o) {
+															return function (p) {
+																return function (q) {
+																	return function (r) {
+																		return function (s) {
+																			return function (t) {
+																				return function (u) {
+																					return function (v) {
+																						return {index: a, canTrickleIceCandidates: b, currentLocalDescription: c, currentRemoteDescription: d, iceConnectionState: e, iceGatheringState: f, idpLoginUrl: g, localDescription: h, onaddstream: i, onaddtrack: j, ondatachannel: k, onicecandidate: l, oniceconnectionstatechange: m, onicegatheringstatechange: n, onnegotiationneeded: o, onremovestream: p, onsignalingstatechange: q, ontrack: r, pendingLocalDescription: s, pendingRemoteDescription: t, remoteDescription: u, signalingState: v};
+																					};
+																				};
+																			};
+																		};
+																	};
+																};
+															};
+														};
+													};
+												};
+											};
+										};
+									};
+								};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+};
+var _UppCoinFoundation$uppchain$Network_WebRTC_RTCPeerConnection$RTCIdentityAssertion = function (a) {
+	return {state: a};
+};
+
+var _UppCoinFoundation$uppchain$Commands$UpdatedRTCPeerConnection = function (a) {
+	return {ctor: 'UpdatedRTCPeerConnection', _0: a};
+};
+var _UppCoinFoundation$uppchain$Commands$NewRTCPeerConnection = function (a) {
+	return {ctor: 'NewRTCPeerConnection', _0: a};
+};
 var _UppCoinFoundation$uppchain$Commands$CreateConnection = {ctor: 'CreateConnection'};
 var _UppCoinFoundation$uppchain$Commands$DisableDataChannelSend = function (a) {
 	return {ctor: 'DisableDataChannelSend', _0: a};
@@ -8172,6 +8227,14 @@ var _UppCoinFoundation$uppchain$Html_Nodes$script = F2(
 			{ctor: '[]'});
 	});
 
+var _UppCoinFoundation$uppchain$Model$addRTCPeerConnection = F2(
+	function (r, m) {
+		return _elm_lang$core$Native_Utils.update(
+			m,
+			{
+				rtcPeerConnetions: A3(_elm_lang$core$Dict$insert, r.index, r, m.rtcPeerConnetions)
+			});
+	});
 var _UppCoinFoundation$uppchain$Model$setDataChannelSendDisabled = F2(
 	function (d, m) {
 		return _elm_lang$core$Native_Utils.update(
@@ -8184,33 +8247,745 @@ var _UppCoinFoundation$uppchain$Model$setCounter = F2(
 			m,
 			{counter: c});
 	});
-var _UppCoinFoundation$uppchain$Model$Model = F2(
-	function (a, b) {
-		return {counter: a, dataChannelSendDisabled: b};
+var _UppCoinFoundation$uppchain$Model$Model = F3(
+	function (a, b, c) {
+		return {counter: a, dataChannelSendDisabled: b, rtcPeerConnetions: c};
 	});
 
-var _UppCoinFoundation$uppchain$Network_WebRTCPorts$disableTextarea = _elm_lang$core$Native_Platform.incomingPort('disableTextarea', _elm_lang$core$Json_Decode$bool);
 var _UppCoinFoundation$uppchain$Network_WebRTCPorts$createConnection = _elm_lang$core$Native_Platform.outgoingPort(
 	'createConnection',
 	function (v) {
 		return v;
 	});
+var _UppCoinFoundation$uppchain$Network_WebRTCPorts$disableTextarea = _elm_lang$core$Native_Platform.incomingPort('disableTextarea', _elm_lang$core$Json_Decode$bool);
+var _UppCoinFoundation$uppchain$Network_WebRTCPorts$rtcPeerConnection = _elm_lang$core$Native_Platform.outgoingPort(
+	'rtcPeerConnection',
+	function (v) {
+		return [
+			(v._0.ctor === 'Nothing') ? null : v._0._0,
+			(v._1.ctor === 'Nothing') ? null : v._1._0
+		];
+	});
+var _UppCoinFoundation$uppchain$Network_WebRTCPorts$rtcPeerConnectionCreateDataChannel = _elm_lang$core$Native_Platform.outgoingPort(
+	'rtcPeerConnectionCreateDataChannel',
+	function (v) {
+		return [
+			{
+			index: v._0.index,
+			canTrickleIceCandidates: (v._0.canTrickleIceCandidates.ctor === 'Nothing') ? null : v._0.canTrickleIceCandidates._0,
+			currentLocalDescription: (v._0.currentLocalDescription.ctor === 'Nothing') ? null : v._0.currentLocalDescription._0,
+			currentRemoteDescription: (v._0.currentRemoteDescription.ctor === 'Nothing') ? null : v._0.currentRemoteDescription._0,
+			iceConnectionState: v._0.iceConnectionState,
+			iceGatheringState: v._0.iceGatheringState,
+			idpLoginUrl: (v._0.idpLoginUrl.ctor === 'Nothing') ? null : v._0.idpLoginUrl._0,
+			localDescription: (v._0.localDescription.ctor === 'Nothing') ? null : v._0.localDescription._0,
+			onaddstream: (v._0.onaddstream.ctor === 'Nothing') ? null : v._0.onaddstream._0,
+			onaddtrack: (v._0.onaddtrack.ctor === 'Nothing') ? null : v._0.onaddtrack._0,
+			ondatachannel: (v._0.ondatachannel.ctor === 'Nothing') ? null : v._0.ondatachannel._0,
+			onicecandidate: (v._0.onicecandidate.ctor === 'Nothing') ? null : v._0.onicecandidate._0,
+			oniceconnectionstatechange: (v._0.oniceconnectionstatechange.ctor === 'Nothing') ? null : v._0.oniceconnectionstatechange._0,
+			onicegatheringstatechange: (v._0.onicegatheringstatechange.ctor === 'Nothing') ? null : v._0.onicegatheringstatechange._0,
+			onnegotiationneeded: (v._0.onnegotiationneeded.ctor === 'Nothing') ? null : v._0.onnegotiationneeded._0,
+			onremovestream: (v._0.onremovestream.ctor === 'Nothing') ? null : v._0.onremovestream._0,
+			onsignalingstatechange: (v._0.onsignalingstatechange.ctor === 'Nothing') ? null : v._0.onsignalingstatechange._0,
+			ontrack: (v._0.ontrack.ctor === 'Nothing') ? null : v._0.ontrack._0,
+			pendingLocalDescription: (v._0.pendingLocalDescription.ctor === 'Nothing') ? null : v._0.pendingLocalDescription._0,
+			pendingRemoteDescription: (v._0.pendingRemoteDescription.ctor === 'Nothing') ? null : v._0.pendingRemoteDescription._0,
+			remoteDescription: (v._0.remoteDescription.ctor === 'Nothing') ? null : v._0.remoteDescription._0,
+			signalingState: v._0.signalingState
+		},
+			(v._1.ctor === 'Nothing') ? null : v._1._0
+		];
+	});
+var _UppCoinFoundation$uppchain$Network_WebRTCPorts$newRTCPeerConnection = _elm_lang$core$Native_Platform.incomingPort(
+	'newRTCPeerConnection',
+	A2(
+		_elm_lang$core$Json_Decode$andThen,
+		function (index) {
+			return A2(
+				_elm_lang$core$Json_Decode$andThen,
+				function (canTrickleIceCandidates) {
+					return A2(
+						_elm_lang$core$Json_Decode$andThen,
+						function (currentLocalDescription) {
+							return A2(
+								_elm_lang$core$Json_Decode$andThen,
+								function (currentRemoteDescription) {
+									return A2(
+										_elm_lang$core$Json_Decode$andThen,
+										function (iceConnectionState) {
+											return A2(
+												_elm_lang$core$Json_Decode$andThen,
+												function (iceGatheringState) {
+													return A2(
+														_elm_lang$core$Json_Decode$andThen,
+														function (idpLoginUrl) {
+															return A2(
+																_elm_lang$core$Json_Decode$andThen,
+																function (localDescription) {
+																	return A2(
+																		_elm_lang$core$Json_Decode$andThen,
+																		function (onaddstream) {
+																			return A2(
+																				_elm_lang$core$Json_Decode$andThen,
+																				function (onaddtrack) {
+																					return A2(
+																						_elm_lang$core$Json_Decode$andThen,
+																						function (ondatachannel) {
+																							return A2(
+																								_elm_lang$core$Json_Decode$andThen,
+																								function (onicecandidate) {
+																									return A2(
+																										_elm_lang$core$Json_Decode$andThen,
+																										function (oniceconnectionstatechange) {
+																											return A2(
+																												_elm_lang$core$Json_Decode$andThen,
+																												function (onicegatheringstatechange) {
+																													return A2(
+																														_elm_lang$core$Json_Decode$andThen,
+																														function (onnegotiationneeded) {
+																															return A2(
+																																_elm_lang$core$Json_Decode$andThen,
+																																function (onremovestream) {
+																																	return A2(
+																																		_elm_lang$core$Json_Decode$andThen,
+																																		function (onsignalingstatechange) {
+																																			return A2(
+																																				_elm_lang$core$Json_Decode$andThen,
+																																				function (ontrack) {
+																																					return A2(
+																																						_elm_lang$core$Json_Decode$andThen,
+																																						function (pendingLocalDescription) {
+																																							return A2(
+																																								_elm_lang$core$Json_Decode$andThen,
+																																								function (pendingRemoteDescription) {
+																																									return A2(
+																																										_elm_lang$core$Json_Decode$andThen,
+																																										function (remoteDescription) {
+																																											return A2(
+																																												_elm_lang$core$Json_Decode$andThen,
+																																												function (signalingState) {
+																																													return _elm_lang$core$Json_Decode$succeed(
+																																														{index: index, canTrickleIceCandidates: canTrickleIceCandidates, currentLocalDescription: currentLocalDescription, currentRemoteDescription: currentRemoteDescription, iceConnectionState: iceConnectionState, iceGatheringState: iceGatheringState, idpLoginUrl: idpLoginUrl, localDescription: localDescription, onaddstream: onaddstream, onaddtrack: onaddtrack, ondatachannel: ondatachannel, onicecandidate: onicecandidate, oniceconnectionstatechange: oniceconnectionstatechange, onicegatheringstatechange: onicegatheringstatechange, onnegotiationneeded: onnegotiationneeded, onremovestream: onremovestream, onsignalingstatechange: onsignalingstatechange, ontrack: ontrack, pendingLocalDescription: pendingLocalDescription, pendingRemoteDescription: pendingRemoteDescription, remoteDescription: remoteDescription, signalingState: signalingState});
+																																												},
+																																												A2(_elm_lang$core$Json_Decode$field, 'signalingState', _elm_lang$core$Json_Decode$string));
+																																										},
+																																										A2(
+																																											_elm_lang$core$Json_Decode$field,
+																																											'remoteDescription',
+																																											_elm_lang$core$Json_Decode$oneOf(
+																																												{
+																																													ctor: '::',
+																																													_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																																													_1: {
+																																														ctor: '::',
+																																														_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																																														_1: {ctor: '[]'}
+																																													}
+																																												})));
+																																								},
+																																								A2(
+																																									_elm_lang$core$Json_Decode$field,
+																																									'pendingRemoteDescription',
+																																									_elm_lang$core$Json_Decode$oneOf(
+																																										{
+																																											ctor: '::',
+																																											_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																																											_1: {
+																																												ctor: '::',
+																																												_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																																												_1: {ctor: '[]'}
+																																											}
+																																										})));
+																																						},
+																																						A2(
+																																							_elm_lang$core$Json_Decode$field,
+																																							'pendingLocalDescription',
+																																							_elm_lang$core$Json_Decode$oneOf(
+																																								{
+																																									ctor: '::',
+																																									_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																																									_1: {
+																																										ctor: '::',
+																																										_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																																										_1: {ctor: '[]'}
+																																									}
+																																								})));
+																																				},
+																																				A2(
+																																					_elm_lang$core$Json_Decode$field,
+																																					'ontrack',
+																																					_elm_lang$core$Json_Decode$oneOf(
+																																						{
+																																							ctor: '::',
+																																							_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																																							_1: {
+																																								ctor: '::',
+																																								_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																																								_1: {ctor: '[]'}
+																																							}
+																																						})));
+																																		},
+																																		A2(
+																																			_elm_lang$core$Json_Decode$field,
+																																			'onsignalingstatechange',
+																																			_elm_lang$core$Json_Decode$oneOf(
+																																				{
+																																					ctor: '::',
+																																					_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																																					_1: {
+																																						ctor: '::',
+																																						_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																																						_1: {ctor: '[]'}
+																																					}
+																																				})));
+																																},
+																																A2(
+																																	_elm_lang$core$Json_Decode$field,
+																																	'onremovestream',
+																																	_elm_lang$core$Json_Decode$oneOf(
+																																		{
+																																			ctor: '::',
+																																			_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																																			_1: {
+																																				ctor: '::',
+																																				_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																																				_1: {ctor: '[]'}
+																																			}
+																																		})));
+																														},
+																														A2(
+																															_elm_lang$core$Json_Decode$field,
+																															'onnegotiationneeded',
+																															_elm_lang$core$Json_Decode$oneOf(
+																																{
+																																	ctor: '::',
+																																	_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																																	_1: {
+																																		ctor: '::',
+																																		_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																																		_1: {ctor: '[]'}
+																																	}
+																																})));
+																												},
+																												A2(
+																													_elm_lang$core$Json_Decode$field,
+																													'onicegatheringstatechange',
+																													_elm_lang$core$Json_Decode$oneOf(
+																														{
+																															ctor: '::',
+																															_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																															_1: {
+																																ctor: '::',
+																																_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																																_1: {ctor: '[]'}
+																															}
+																														})));
+																										},
+																										A2(
+																											_elm_lang$core$Json_Decode$field,
+																											'oniceconnectionstatechange',
+																											_elm_lang$core$Json_Decode$oneOf(
+																												{
+																													ctor: '::',
+																													_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																													_1: {
+																														ctor: '::',
+																														_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																														_1: {ctor: '[]'}
+																													}
+																												})));
+																								},
+																								A2(
+																									_elm_lang$core$Json_Decode$field,
+																									'onicecandidate',
+																									_elm_lang$core$Json_Decode$oneOf(
+																										{
+																											ctor: '::',
+																											_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																											_1: {
+																												ctor: '::',
+																												_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																												_1: {ctor: '[]'}
+																											}
+																										})));
+																						},
+																						A2(
+																							_elm_lang$core$Json_Decode$field,
+																							'ondatachannel',
+																							_elm_lang$core$Json_Decode$oneOf(
+																								{
+																									ctor: '::',
+																									_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																									_1: {
+																										ctor: '::',
+																										_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																										_1: {ctor: '[]'}
+																									}
+																								})));
+																				},
+																				A2(
+																					_elm_lang$core$Json_Decode$field,
+																					'onaddtrack',
+																					_elm_lang$core$Json_Decode$oneOf(
+																						{
+																							ctor: '::',
+																							_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																							_1: {
+																								ctor: '::',
+																								_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																								_1: {ctor: '[]'}
+																							}
+																						})));
+																		},
+																		A2(
+																			_elm_lang$core$Json_Decode$field,
+																			'onaddstream',
+																			_elm_lang$core$Json_Decode$oneOf(
+																				{
+																					ctor: '::',
+																					_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																					_1: {
+																						ctor: '::',
+																						_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																						_1: {ctor: '[]'}
+																					}
+																				})));
+																},
+																A2(
+																	_elm_lang$core$Json_Decode$field,
+																	'localDescription',
+																	_elm_lang$core$Json_Decode$oneOf(
+																		{
+																			ctor: '::',
+																			_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																			_1: {
+																				ctor: '::',
+																				_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																				_1: {ctor: '[]'}
+																			}
+																		})));
+														},
+														A2(
+															_elm_lang$core$Json_Decode$field,
+															'idpLoginUrl',
+															_elm_lang$core$Json_Decode$oneOf(
+																{
+																	ctor: '::',
+																	_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																	_1: {
+																		ctor: '::',
+																		_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																		_1: {ctor: '[]'}
+																	}
+																})));
+												},
+												A2(_elm_lang$core$Json_Decode$field, 'iceGatheringState', _elm_lang$core$Json_Decode$string));
+										},
+										A2(_elm_lang$core$Json_Decode$field, 'iceConnectionState', _elm_lang$core$Json_Decode$string));
+								},
+								A2(
+									_elm_lang$core$Json_Decode$field,
+									'currentRemoteDescription',
+									_elm_lang$core$Json_Decode$oneOf(
+										{
+											ctor: '::',
+											_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+											_1: {
+												ctor: '::',
+												_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+												_1: {ctor: '[]'}
+											}
+										})));
+						},
+						A2(
+							_elm_lang$core$Json_Decode$field,
+							'currentLocalDescription',
+							_elm_lang$core$Json_Decode$oneOf(
+								{
+									ctor: '::',
+									_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+									_1: {
+										ctor: '::',
+										_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+										_1: {ctor: '[]'}
+									}
+								})));
+				},
+				A2(
+					_elm_lang$core$Json_Decode$field,
+					'canTrickleIceCandidates',
+					_elm_lang$core$Json_Decode$oneOf(
+						{
+							ctor: '::',
+							_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+							_1: {
+								ctor: '::',
+								_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$bool),
+								_1: {ctor: '[]'}
+							}
+						})));
+		},
+		A2(_elm_lang$core$Json_Decode$field, 'index', _elm_lang$core$Json_Decode$int)));
+var _UppCoinFoundation$uppchain$Network_WebRTCPorts$updatedRTCPeerConnection = _elm_lang$core$Native_Platform.incomingPort(
+	'updatedRTCPeerConnection',
+	A2(
+		_elm_lang$core$Json_Decode$andThen,
+		function (index) {
+			return A2(
+				_elm_lang$core$Json_Decode$andThen,
+				function (canTrickleIceCandidates) {
+					return A2(
+						_elm_lang$core$Json_Decode$andThen,
+						function (currentLocalDescription) {
+							return A2(
+								_elm_lang$core$Json_Decode$andThen,
+								function (currentRemoteDescription) {
+									return A2(
+										_elm_lang$core$Json_Decode$andThen,
+										function (iceConnectionState) {
+											return A2(
+												_elm_lang$core$Json_Decode$andThen,
+												function (iceGatheringState) {
+													return A2(
+														_elm_lang$core$Json_Decode$andThen,
+														function (idpLoginUrl) {
+															return A2(
+																_elm_lang$core$Json_Decode$andThen,
+																function (localDescription) {
+																	return A2(
+																		_elm_lang$core$Json_Decode$andThen,
+																		function (onaddstream) {
+																			return A2(
+																				_elm_lang$core$Json_Decode$andThen,
+																				function (onaddtrack) {
+																					return A2(
+																						_elm_lang$core$Json_Decode$andThen,
+																						function (ondatachannel) {
+																							return A2(
+																								_elm_lang$core$Json_Decode$andThen,
+																								function (onicecandidate) {
+																									return A2(
+																										_elm_lang$core$Json_Decode$andThen,
+																										function (oniceconnectionstatechange) {
+																											return A2(
+																												_elm_lang$core$Json_Decode$andThen,
+																												function (onicegatheringstatechange) {
+																													return A2(
+																														_elm_lang$core$Json_Decode$andThen,
+																														function (onnegotiationneeded) {
+																															return A2(
+																																_elm_lang$core$Json_Decode$andThen,
+																																function (onremovestream) {
+																																	return A2(
+																																		_elm_lang$core$Json_Decode$andThen,
+																																		function (onsignalingstatechange) {
+																																			return A2(
+																																				_elm_lang$core$Json_Decode$andThen,
+																																				function (ontrack) {
+																																					return A2(
+																																						_elm_lang$core$Json_Decode$andThen,
+																																						function (pendingLocalDescription) {
+																																							return A2(
+																																								_elm_lang$core$Json_Decode$andThen,
+																																								function (pendingRemoteDescription) {
+																																									return A2(
+																																										_elm_lang$core$Json_Decode$andThen,
+																																										function (remoteDescription) {
+																																											return A2(
+																																												_elm_lang$core$Json_Decode$andThen,
+																																												function (signalingState) {
+																																													return _elm_lang$core$Json_Decode$succeed(
+																																														{index: index, canTrickleIceCandidates: canTrickleIceCandidates, currentLocalDescription: currentLocalDescription, currentRemoteDescription: currentRemoteDescription, iceConnectionState: iceConnectionState, iceGatheringState: iceGatheringState, idpLoginUrl: idpLoginUrl, localDescription: localDescription, onaddstream: onaddstream, onaddtrack: onaddtrack, ondatachannel: ondatachannel, onicecandidate: onicecandidate, oniceconnectionstatechange: oniceconnectionstatechange, onicegatheringstatechange: onicegatheringstatechange, onnegotiationneeded: onnegotiationneeded, onremovestream: onremovestream, onsignalingstatechange: onsignalingstatechange, ontrack: ontrack, pendingLocalDescription: pendingLocalDescription, pendingRemoteDescription: pendingRemoteDescription, remoteDescription: remoteDescription, signalingState: signalingState});
+																																												},
+																																												A2(_elm_lang$core$Json_Decode$field, 'signalingState', _elm_lang$core$Json_Decode$string));
+																																										},
+																																										A2(
+																																											_elm_lang$core$Json_Decode$field,
+																																											'remoteDescription',
+																																											_elm_lang$core$Json_Decode$oneOf(
+																																												{
+																																													ctor: '::',
+																																													_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																																													_1: {
+																																														ctor: '::',
+																																														_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																																														_1: {ctor: '[]'}
+																																													}
+																																												})));
+																																								},
+																																								A2(
+																																									_elm_lang$core$Json_Decode$field,
+																																									'pendingRemoteDescription',
+																																									_elm_lang$core$Json_Decode$oneOf(
+																																										{
+																																											ctor: '::',
+																																											_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																																											_1: {
+																																												ctor: '::',
+																																												_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																																												_1: {ctor: '[]'}
+																																											}
+																																										})));
+																																						},
+																																						A2(
+																																							_elm_lang$core$Json_Decode$field,
+																																							'pendingLocalDescription',
+																																							_elm_lang$core$Json_Decode$oneOf(
+																																								{
+																																									ctor: '::',
+																																									_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																																									_1: {
+																																										ctor: '::',
+																																										_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																																										_1: {ctor: '[]'}
+																																									}
+																																								})));
+																																				},
+																																				A2(
+																																					_elm_lang$core$Json_Decode$field,
+																																					'ontrack',
+																																					_elm_lang$core$Json_Decode$oneOf(
+																																						{
+																																							ctor: '::',
+																																							_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																																							_1: {
+																																								ctor: '::',
+																																								_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																																								_1: {ctor: '[]'}
+																																							}
+																																						})));
+																																		},
+																																		A2(
+																																			_elm_lang$core$Json_Decode$field,
+																																			'onsignalingstatechange',
+																																			_elm_lang$core$Json_Decode$oneOf(
+																																				{
+																																					ctor: '::',
+																																					_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																																					_1: {
+																																						ctor: '::',
+																																						_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																																						_1: {ctor: '[]'}
+																																					}
+																																				})));
+																																},
+																																A2(
+																																	_elm_lang$core$Json_Decode$field,
+																																	'onremovestream',
+																																	_elm_lang$core$Json_Decode$oneOf(
+																																		{
+																																			ctor: '::',
+																																			_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																																			_1: {
+																																				ctor: '::',
+																																				_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																																				_1: {ctor: '[]'}
+																																			}
+																																		})));
+																														},
+																														A2(
+																															_elm_lang$core$Json_Decode$field,
+																															'onnegotiationneeded',
+																															_elm_lang$core$Json_Decode$oneOf(
+																																{
+																																	ctor: '::',
+																																	_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																																	_1: {
+																																		ctor: '::',
+																																		_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																																		_1: {ctor: '[]'}
+																																	}
+																																})));
+																												},
+																												A2(
+																													_elm_lang$core$Json_Decode$field,
+																													'onicegatheringstatechange',
+																													_elm_lang$core$Json_Decode$oneOf(
+																														{
+																															ctor: '::',
+																															_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																															_1: {
+																																ctor: '::',
+																																_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																																_1: {ctor: '[]'}
+																															}
+																														})));
+																										},
+																										A2(
+																											_elm_lang$core$Json_Decode$field,
+																											'oniceconnectionstatechange',
+																											_elm_lang$core$Json_Decode$oneOf(
+																												{
+																													ctor: '::',
+																													_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																													_1: {
+																														ctor: '::',
+																														_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																														_1: {ctor: '[]'}
+																													}
+																												})));
+																								},
+																								A2(
+																									_elm_lang$core$Json_Decode$field,
+																									'onicecandidate',
+																									_elm_lang$core$Json_Decode$oneOf(
+																										{
+																											ctor: '::',
+																											_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																											_1: {
+																												ctor: '::',
+																												_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																												_1: {ctor: '[]'}
+																											}
+																										})));
+																						},
+																						A2(
+																							_elm_lang$core$Json_Decode$field,
+																							'ondatachannel',
+																							_elm_lang$core$Json_Decode$oneOf(
+																								{
+																									ctor: '::',
+																									_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																									_1: {
+																										ctor: '::',
+																										_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																										_1: {ctor: '[]'}
+																									}
+																								})));
+																				},
+																				A2(
+																					_elm_lang$core$Json_Decode$field,
+																					'onaddtrack',
+																					_elm_lang$core$Json_Decode$oneOf(
+																						{
+																							ctor: '::',
+																							_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																							_1: {
+																								ctor: '::',
+																								_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																								_1: {ctor: '[]'}
+																							}
+																						})));
+																		},
+																		A2(
+																			_elm_lang$core$Json_Decode$field,
+																			'onaddstream',
+																			_elm_lang$core$Json_Decode$oneOf(
+																				{
+																					ctor: '::',
+																					_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																					_1: {
+																						ctor: '::',
+																						_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																						_1: {ctor: '[]'}
+																					}
+																				})));
+																},
+																A2(
+																	_elm_lang$core$Json_Decode$field,
+																	'localDescription',
+																	_elm_lang$core$Json_Decode$oneOf(
+																		{
+																			ctor: '::',
+																			_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																			_1: {
+																				ctor: '::',
+																				_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																				_1: {ctor: '[]'}
+																			}
+																		})));
+														},
+														A2(
+															_elm_lang$core$Json_Decode$field,
+															'idpLoginUrl',
+															_elm_lang$core$Json_Decode$oneOf(
+																{
+																	ctor: '::',
+																	_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+																	_1: {
+																		ctor: '::',
+																		_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+																		_1: {ctor: '[]'}
+																	}
+																})));
+												},
+												A2(_elm_lang$core$Json_Decode$field, 'iceGatheringState', _elm_lang$core$Json_Decode$string));
+										},
+										A2(_elm_lang$core$Json_Decode$field, 'iceConnectionState', _elm_lang$core$Json_Decode$string));
+								},
+								A2(
+									_elm_lang$core$Json_Decode$field,
+									'currentRemoteDescription',
+									_elm_lang$core$Json_Decode$oneOf(
+										{
+											ctor: '::',
+											_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+											_1: {
+												ctor: '::',
+												_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+												_1: {ctor: '[]'}
+											}
+										})));
+						},
+						A2(
+							_elm_lang$core$Json_Decode$field,
+							'currentLocalDescription',
+							_elm_lang$core$Json_Decode$oneOf(
+								{
+									ctor: '::',
+									_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+									_1: {
+										ctor: '::',
+										_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$string),
+										_1: {ctor: '[]'}
+									}
+								})));
+				},
+				A2(
+					_elm_lang$core$Json_Decode$field,
+					'canTrickleIceCandidates',
+					_elm_lang$core$Json_Decode$oneOf(
+						{
+							ctor: '::',
+							_0: _elm_lang$core$Json_Decode$null(_elm_lang$core$Maybe$Nothing),
+							_1: {
+								ctor: '::',
+								_0: A2(_elm_lang$core$Json_Decode$map, _elm_lang$core$Maybe$Just, _elm_lang$core$Json_Decode$bool),
+								_1: {ctor: '[]'}
+							}
+						})));
+		},
+		A2(_elm_lang$core$Json_Decode$field, 'index', _elm_lang$core$Json_Decode$int)));
 
 var _UppCoinFoundation$uppchain$Subscriptions$subscriptions = function (model) {
 	return _elm_lang$core$Platform_Sub$batch(
 		{
 			ctor: '::',
 			_0: _UppCoinFoundation$uppchain$Network_WebRTCPorts$disableTextarea(_UppCoinFoundation$uppchain$Commands$DisableDataChannelSend),
-			_1: {ctor: '[]'}
+			_1: {
+				ctor: '::',
+				_0: _UppCoinFoundation$uppchain$Network_WebRTCPorts$newRTCPeerConnection(_UppCoinFoundation$uppchain$Commands$NewRTCPeerConnection),
+				_1: {
+					ctor: '::',
+					_0: _UppCoinFoundation$uppchain$Network_WebRTCPorts$newRTCPeerConnection(_UppCoinFoundation$uppchain$Commands$UpdatedRTCPeerConnection),
+					_1: {ctor: '[]'}
+				}
+			}
 		});
 };
 
 var _UppCoinFoundation$uppchain$Update$newCmd = function (msg) {
 	var _p0 = msg;
-	if (_p0.ctor === 'CreateConnection') {
-		return _UppCoinFoundation$uppchain$Network_WebRTCPorts$createConnection('asdf');
-	} else {
-		return _elm_lang$core$Platform_Cmd$none;
+	switch (_p0.ctor) {
+		case 'CreateConnection':
+			return _UppCoinFoundation$uppchain$Network_WebRTCPorts$rtcPeerConnection(
+				{ctor: '_Tuple2', _0: _elm_lang$core$Maybe$Nothing, _1: _elm_lang$core$Maybe$Nothing});
+		case 'NewRTCPeerConnection':
+			return _UppCoinFoundation$uppchain$Network_WebRTCPorts$rtcPeerConnectionCreateDataChannel(
+				{ctor: '_Tuple2', _0: _p0._0, _1: _elm_lang$core$Maybe$Nothing});
+		default:
+			return _elm_lang$core$Platform_Cmd$none;
 	}
 };
 var _UppCoinFoundation$uppchain$Update$newModel = F2(
@@ -8223,6 +8998,10 @@ var _UppCoinFoundation$uppchain$Update$newModel = F2(
 				return A2(_UppCoinFoundation$uppchain$Model$setCounter, model.counter - 1, model);
 			case 'DisableDataChannelSend':
 				return A2(_UppCoinFoundation$uppchain$Model$setDataChannelSendDisabled, _p1._0, model);
+			case 'NewRTCPeerConnection':
+				return A2(_UppCoinFoundation$uppchain$Model$addRTCPeerConnection, _p1._0, model);
+			case 'UpdatedRTCPeerConnection':
+				return A2(_UppCoinFoundation$uppchain$Model$addRTCPeerConnection, _p1._0, model);
 			default:
 				return model;
 		}
@@ -8528,7 +9307,19 @@ var _UppCoinFoundation$uppchain$View$html = function (model) {
 						}
 					}
 				}),
-			_1: {ctor: '[]'}
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$div,
+					{ctor: '[]'},
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html$text(
+							_elm_lang$core$Basics$toString(model.rtcPeerConnetions)),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}
 		}
 	};
 };
@@ -8542,7 +9333,7 @@ var _UppCoinFoundation$uppchain$View$view = function (model) {
 			_UppCoinFoundation$uppchain$View$scripts));
 };
 
-var _UppCoinFoundation$uppchain$Main$model = A2(_UppCoinFoundation$uppchain$Model$Model, 0, true);
+var _UppCoinFoundation$uppchain$Main$model = A3(_UppCoinFoundation$uppchain$Model$Model, 0, true, _elm_lang$core$Dict$empty);
 var _UppCoinFoundation$uppchain$Main$init = {ctor: '_Tuple2', _0: _UppCoinFoundation$uppchain$Main$model, _1: _elm_lang$core$Platform_Cmd$none};
 var _UppCoinFoundation$uppchain$Main$main = _elm_lang$html$Html$program(
 	{init: _UppCoinFoundation$uppchain$Main$init, update: _UppCoinFoundation$uppchain$Update$update, view: _UppCoinFoundation$uppchain$View$view, subscriptions: _UppCoinFoundation$uppchain$Subscriptions$subscriptions})();

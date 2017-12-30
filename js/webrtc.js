@@ -1,11 +1,14 @@
 'use strict';
 
-var localConnection;
-var remoteConnection;
-var sendChannel;
-var receiveChannel;
-var pcConstraint;
-var dataConstraint;
+// var localConnection;
+// var remoteConnection;
+// var sendChannel;
+// var receiveChannel;
+// var pcConstraint;
+// var dataConstraint;
+
+// Keep connection variables
+var rtcPeerConnections = [];
 
 // var dataChannelSend = document.getElementById('dataChannelSend');
 // var dataChannelReceive = document.getElementById('dataChannelReceive');
@@ -33,12 +36,81 @@ var dataConstraint;
 // }
 
 
-// -- TODO arguemnts: id -> servers, pcConstraint, dataConstraint, onSendChannelStateChange
-app.ports.createConnection.subscribe(function(id) {
-    trace ("createConnection");
+function getByIndex(list,elmObj) {
+    var index = elmObj.index;
+    return list[index];
+}
 
-    app.ports.disableTextarea.send(false);
+function toElmRTCIdentityAssertion(ass) {
+    trace ("ass: " + JSON.stringify(ass));
+    trace ("ass: " + Promise.resolve(ass));
+    if (Object.keys(ass).length === 0 && ass.constructor === Object) {
+        return null;
+    }
+    trace('toElmRTCIdentityAssertion: not yet fully implemented');
+    return ass; // {state: ass};
+}
+
+function addToListAndIndex(con,list) {
+    let idx = list.length;
+    con.index = idx;
+    list.push(con);
+    return con;
+}
+
+function toElmRTCPeerConnection(con) {
+    var obj = { index: con.index,
+                canTrickleIceCandidates: con.canTrickleIceCandidates,
+                currentLocalDescription: con.currentLocalDescription,
+                currentRemoteDescription: con.currentRemoteDescription,
+                iceConnectionState: con.iceConnectionState,
+                iceGatheringState: con.iceGatheringState,
+                idpLoginUrl: con.idpLoginUrl,
+                localDescription: con.localDescription,
+                onaddstream: con.onaddstream,
+                onaddtrack: con.onaddtrack,
+                ondatachannel: con.ondatachannel,
+                onicecandidate: con.onicecandidate,
+                oniceconnectionstatechange: con.oniceconnectionstatechange,
+                onicegatheringstatechange: con.onicegatheringstatechange,
+                onnegotiationneeded: con.onnegotiationneeded,
+                onremovestream: con.onremovestream,
+                onsignalingstatechange: con.onsignalingstatechange,
+                ontrack: con.ontrack,
+                // peerIdentity: toElmRTCIdentityAssertion(con.peerIdentity),
+                pendingLocalDescription: con.pendingLocalDescription,
+                pendingRemoteDescription: con.pendingRemoteDescription,
+                remoteDescription: con.remoteDescription,
+                signalingState: con.signalingState
+              };
+    return obj;
+}
+
+
+// Creates a new RTCPeerConnection and sends it to Elm.
+app.ports.rtcPeerConnection.subscribe(function(args) {
+    var [servers,pcConstraint] = args;
+    var c = new RTCPeerConnection(servers, pcConstraint);
+    var con = addToListAndIndex(c,rtcPeerConnections); // save for later access
+    app.ports.newRTCPeerConnection.send(toElmRTCPeerConnection(con));
+});
+
+
+// Creates a data channel on the RTCPeerConnection specified and returns the
+// updated connection.
+app.ports.rtcPeerConnectionCreateDataChannel.subscribe(function(args) {
+    var [elmCon,dataConstraint] = args;
+    var con = getByIndex(rtcPeerConnections,elmCon);
+    con.createDataChannel('sendDataChannel', dataConstraint);
+    app.ports.updatedRTCPeerConnection.send(toElmRTCPeerConnection(con));
+});
+
+
+function todo() {
+    // trace ("createConnection");
+    // app.ports.disableTextarea.send(false);
     // dataChannelSend.placeholder = '';
+
     var servers = null;
     pcConstraint = null;
     dataConstraint = null;
@@ -61,8 +133,11 @@ app.ports.createConnection.subscribe(function(id) {
     window.remoteConnection = remoteConnection =
         new RTCPeerConnection(servers, pcConstraint);
     trace('Created remote peer connection object remoteConnection');
-
+    var elmCon = toElmRTCPeerConnection(localConnection,inboundconnections);
     trace('Callbacks TODO');
+    trace(JSON.stringify(elmCon))
+    app.ports.newRTCPeerConnection.send(elmCon);
+
     // remoteConnection.onicecandidate = iceCallback2;
     // remoteConnection.ondatachannel = receiveChannelCallback;
 
@@ -72,7 +147,8 @@ app.ports.createConnection.subscribe(function(id) {
     // );
     // startButton.disabled = true;
     // closeButton.disabled = false;
-});
+
+};
 
 // function onCreateSessionDescriptionError(error) {
 //     trace('Failed to create session description: ' + error.toString());

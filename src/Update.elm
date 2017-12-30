@@ -7,9 +7,9 @@
 --Created: Fri Dec 29 13:44:45 2017 (+0100)
 --Version:
 --Package-Requires: ()
---Last-Updated: Fri Dec 29 19:40:15 2017 (+0100)
+--Last-Updated: Sat Dec 30 13:07:04 2017 (+0100)
 --          By: Manuel Schneckenreither
---    Update #: 71
+--    Update #: 105
 --URL:
 --Doc URL:
 --Keywords:
@@ -39,7 +39,7 @@ module Update
 
 import Commands exposing (..)
 import Model exposing (..)
-import Network.WebRTCPorts exposing (createConnection)
+import Network.WebRTCPorts exposing (rtcPeerConnection, rtcPeerConnectionCreateDataChannel)
 
 
 -- UPDATE
@@ -53,6 +53,7 @@ update msg model =
 newModel : Command -> Model -> Model
 newModel msg model =
     case msg of
+        -- Actions
         Increment ->
             model |> setCounter (model.counter + 1)
 
@@ -60,9 +61,17 @@ newModel msg model =
             model |> setCounter (model.counter - 1)
 
         DisableDataChannelSend dis ->
-            model |> setDataChannelSendDisabled dis
+            setDataChannelSendDisabled dis model
 
-        CreateConnection ->
+        -- JS Inputs
+        NewRTCPeerConnection c ->
+            addRTCPeerConnection c model
+
+        UpdatedRTCPeerConnection c ->
+            addRTCPeerConnection c model
+
+        -- Otherwise
+        _ ->
             model
 
 
@@ -70,7 +79,10 @@ newCmd : Command -> Cmd Command
 newCmd msg =
     case msg of
         CreateConnection ->
-            createConnection "asdf"
+            rtcPeerConnection ( Nothing, Nothing )
+
+        NewRTCPeerConnection c ->
+            rtcPeerConnectionCreateDataChannel ( c, Nothing )
 
         _ ->
             Cmd.none

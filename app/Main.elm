@@ -7,9 +7,9 @@
 --Created: Fri Dec 29 13:14:33 2017 (+0100)
 --Version:
 --Package-Requires: ()
---Last-Updated: Fri Dec 29 19:42:14 2017 (+0100)
+--Last-Updated: Sat Dec 30 12:54:59 2017 (+0100)
 --          By: Manuel Schneckenreither
---    Update #: 75
+--    Update #: 85
 --URL:
 --Doc URL:
 --Keywords:
@@ -34,12 +34,19 @@
 
 module Main exposing (main)
 
+-- Internal modules
+
 import Commands exposing (..)
-import Html exposing (Html, program, fieldset, input, label, text)
 import Model exposing (Model)
 import Subscriptions exposing (..)
 import Update exposing (..)
 import View exposing (view)
+
+
+-- External packages
+
+import Dict exposing (empty)
+import Html exposing (Html, program, fieldset, input, label, text)
 
 
 main : Program Never Model Command
@@ -62,7 +69,7 @@ init =
 
 model : Model
 model =
-    Model 0 True
+    Model 0 True empty
 
 
 
