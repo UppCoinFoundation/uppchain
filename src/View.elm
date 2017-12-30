@@ -7,9 +7,9 @@
 --Created: Fri Dec 29 13:42:45 2017 (+0100)
 --Version:
 --Package-Requires: ()
---Last-Updated: Sat Dec 30 10:52:16 2017 (+0100)
+--Last-Updated: Sat Dec 30 14:22:26 2017 (+0100)
 --          By: Manuel Schneckenreither
---    Update #: 106
+--    Update #: 112
 --URL:
 --Doc URL:
 --Keywords:
@@ -39,7 +39,7 @@ module View
 
 -- Internal packages
 
-import Commands exposing (Command(..))
+import Commands exposing (..)
 import Html.Ids exposing (..)
 import Html.Nodes exposing (script)
 import Model exposing (Model)
@@ -100,7 +100,7 @@ html model =
             ]
             []
         , div [ id buttons ]
-            [ button [ id startButton, onClick CreateConnection ] [ start ]
+            [ button [ id startButton, onClick (RTCPeerCommand CreateConnection) ] [ start ]
             , button [ id sendButton ] [ send ]
             , button [ id closeButton ] [ close ]
             ]

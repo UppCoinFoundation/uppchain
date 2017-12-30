@@ -7,9 +7,9 @@
 --Created: Fri Dec 29 15:51:35 2017 (+0100)
 --Version:
 --Package-Requires: ()
---Last-Updated: Sat Dec 30 13:05:47 2017 (+0100)
+--Last-Updated: Sat Dec 30 14:19:08 2017 (+0100)
 --          By: Manuel Schneckenreither
---    Update #: 17
+--    Update #: 37
 --URL:
 --Doc URL:
 --Keywords:
@@ -32,10 +32,7 @@
 --Code:
 
 
-module Commands
-    exposing
-        ( Command(..)
-        )
+module Commands exposing (..)
 
 import Network.WebRTC.RTCPeerConnection exposing (RTCPeerConnection)
 
@@ -43,10 +40,13 @@ import Network.WebRTC.RTCPeerConnection exposing (RTCPeerConnection)
 type Command
     = Increment
     | Decrement
-    | DisableDataChannelSend Bool
-    | CreateConnection
+    | RTCPeerCommand WebRTCPeerCommand
+
+
+type WebRTCPeerCommand
+    = CreateConnection
     | NewRTCPeerConnection (RTCPeerConnection String)
-    | UpdatedRTCPeerConnection (RTCPeerConnection String)
+    | UpdateRTCPeerConnection (RTCPeerConnection String)
 
 
 

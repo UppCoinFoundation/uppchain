@@ -7,9 +7,9 @@
 --Created: Fri Dec 29 18:13:30 2017 (+0100)
 --Version:
 --Package-Requires: ()
---Last-Updated: Sat Dec 30 13:05:16 2017 (+0100)
+--Last-Updated: Sat Dec 30 14:16:24 2017 (+0100)
 --          By: Manuel Schneckenreither
---    Update #: 54
+--    Update #: 62
 --URL:
 --Doc URL:
 --Keywords:
@@ -60,7 +60,16 @@ port rtcPeerConnectionCreateDataChannel : ( RTCPeerConnection String, Maybe Stri
 port newRTCPeerConnection : (RTCPeerConnection String -> msg) -> Sub msg
 
 
-port updatedRTCPeerConnection : (RTCPeerConnection String -> msg) -> Sub msg
+port updateRTCPeerConnection : (RTCPeerConnection String -> msg) -> Sub msg
+
+
+port rtcPeerConnectionOnIceCanidate : (RTCPeerConnection String -> msg) -> Sub msg
+
+
+port rtcPeerConnectionOnOpen : (RTCPeerConnection String -> msg) -> Sub msg
+
+
+port rtcPeerConnectionOnClose : (RTCPeerConnection String -> msg) -> Sub msg
 
 
 

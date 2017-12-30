@@ -7,9 +7,9 @@
 --Created: Fri Dec 29 13:44:45 2017 (+0100)
 --Version:
 --Package-Requires: ()
---Last-Updated: Sat Dec 30 13:07:04 2017 (+0100)
+--Last-Updated: Sat Dec 30 14:19:12 2017 (+0100)
 --          By: Manuel Schneckenreither
---    Update #: 105
+--    Update #: 131
 --URL:
 --Doc URL:
 --Keywords:
@@ -60,29 +60,37 @@ newModel msg model =
         Decrement ->
             model |> setCounter (model.counter - 1)
 
-        DisableDataChannelSend dis ->
-            setDataChannelSendDisabled dis model
-
         -- JS Inputs
+        RTCPeerCommand cmd ->
+            handleRtcPeerCommand cmd model
+
+
+handleRtcPeerCommand : WebRTCPeerCommand -> Model -> Model
+handleRtcPeerCommand cmd model =
+    case cmd of
+        CreateConnection ->
+            model
+
         NewRTCPeerConnection c ->
             addRTCPeerConnection c model
 
-        UpdatedRTCPeerConnection c ->
+        UpdateRTCPeerConnection c ->
             addRTCPeerConnection c model
-
-        -- Otherwise
-        _ ->
-            model
 
 
 newCmd : Command -> Cmd Command
 newCmd msg =
     case msg of
-        CreateConnection ->
-            rtcPeerConnection ( Nothing, Nothing )
+        RTCPeerCommand cmd ->
+            case cmd of
+                CreateConnection ->
+                    rtcPeerConnection ( Nothing, Nothing )
 
-        NewRTCPeerConnection c ->
-            rtcPeerConnectionCreateDataChannel ( c, Nothing )
+                NewRTCPeerConnection c ->
+                    rtcPeerConnectionCreateDataChannel ( c, Nothing )
+
+                UpdateRTCPeerConnection c ->
+                    rtcPeerConnectionCreateDataChannel ( c, Nothing )
 
         _ ->
             Cmd.none

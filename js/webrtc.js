@@ -28,28 +28,12 @@ var rtcPeerConnections = [];
 //     sendButton.disabled = true;
 // }
 
-// app.ports.newRTCPeerConnection.subscribe(function( ))
-
-// app.ports.newRTCPeerConnection.subscribe(function (servers,pcConstraint)) {
-//     var c = new RTCPeerConnection(servers, pcConstraint);
-
-// }
-
 
 function getByIndex(list,elmObj) {
     var index = elmObj.index;
     return list[index];
 }
 
-function toElmRTCIdentityAssertion(ass) {
-    trace ("ass: " + JSON.stringify(ass));
-    trace ("ass: " + Promise.resolve(ass));
-    if (Object.keys(ass).length === 0 && ass.constructor === Object) {
-        return null;
-    }
-    trace('toElmRTCIdentityAssertion: not yet fully implemented');
-    return ass; // {state: ass};
-}
 
 function addToListAndIndex(con,list) {
     let idx = list.length;
@@ -58,6 +42,8 @@ function addToListAndIndex(con,list) {
     return con;
 }
 
+
+// Convert a RTCPeerConnection to the elm data structure.
 function toElmRTCPeerConnection(con) {
     var obj = { index: con.index,
                 canTrickleIceCandidates: con.canTrickleIceCandidates,
@@ -92,7 +78,11 @@ app.ports.rtcPeerConnection.subscribe(function(args) {
     var [servers,pcConstraint] = args;
     var c = new RTCPeerConnection(servers, pcConstraint);
     var con = addToListAndIndex(c,rtcPeerConnections); // save for later access
-    app.ports.newRTCPeerConnection.send(toElmRTCPeerConnection(con));
+    // Add callbacks
+    var elmCon = toElmRTCPeerConnection(con);
+    con.onopen = onOpen.bind(null,con.index);
+    con.onclose = app.ports.rtcPeerConnectionOnClose.send(elmCon);
+    app.ports.newRTCPeerConnection.send(elmCon);
 });
 
 
@@ -102,14 +92,54 @@ app.ports.rtcPeerConnectionCreateDataChannel.subscribe(function(args) {
     var [elmCon,dataConstraint] = args;
     var con = getByIndex(rtcPeerConnections,elmCon);
     con.createDataChannel('sendDataChannel', dataConstraint);
-    app.ports.updatedRTCPeerConnection.send(toElmRTCPeerConnection(con));
+
+    app.ports.updateRTCPeerConnection.send(toElmRTCPeerConnection(con));
 });
 
 
+app.ports.rtcPeerConnectionCreateOffer.subscribe(function(args)) {
+    var [elmLocal,elmRemote,desc] = args;
+    var local = getByIndex(rtcPeerConnections,elmLocal);
+    var remote = getByIndex(rtcPeerConnections,elmRemote);
+    con.createOffer().then(createOfferSuccess.bind(null, local,remote), createOfferFailure);
+    trace('Offer from localConnection \n' + desc.sdp);
+    local.
+}
+
+function createOfferSuccess(local,remote,desc) {
+    trace('Offer from localConnection \n' + desc.sdp);
+    local.setLocalDescription(desc);
+    remote.setRemoteDescription(desc);
+    // TODO
+    remoteConnection.createAnswer().then(
+        gotDescription2,
+        onCreateSessionDescriptionError
+    );
+}
+
+function gotDescription1(con,desc) {
+    trace('Offer from localConnection \n' + desc.sdp);
+    con.setLocalDescription(desc);
+    remoteConnection.setRemoteDescription(desc);
+    remoteConnection.createAnswer().then(
+        gotDescription2,
+        onCreateSessionDescriptionError
+    );
+}
+
+
+function onOpen(index,ev) {
+    app.ports.rtcPeerConnectionOnIceCanidate.send(toElmRTCPeerConnection(ev));
+}
+
+
+function onIceCandidate(ev) {
+    app.ports.rtcPeerConnectionOnIceCanidate.send(toElmRTCPeerConnection(ev));
+}
+
+
 function todo() {
-    // trace ("createConnection");
     // app.ports.disableTextarea.send(false);
-    // dataChannelSend.placeholder = '';
 
     var servers = null;
     pcConstraint = null;
@@ -123,15 +153,13 @@ function todo() {
     sendChannel = localConnection.createDataChannel('sendDataChannel', dataConstraint);
     trace('Created send data channel');
     trace('Callbacks TODO');
-    // localConnection.onicecandidate = iceCallback1;
-
-    // sendChannel.onopen = onSendChannelStateChange;
+    localConnection.onicecandidate = iceCallback1;
+    sendChannel.onopen = onSendChannelStateChange;
     // sendChannel.onclose = onSendChannelStateChange;
 
     // Add remoteConnection to global scope to make it visible
     // from the browser console.
-    window.remoteConnection = remoteConnection =
-        new RTCPeerConnection(servers, pcConstraint);
+    window.remoteConnection = remoteConnection = new RTCPeerConnection(servers, pcConstraint);
     trace('Created remote peer connection object remoteConnection');
     var elmCon = toElmRTCPeerConnection(localConnection,inboundconnections);
     trace('Callbacks TODO');
@@ -181,15 +209,6 @@ function todo() {
 //     enableStartButton();
 // }
 
-// function gotDescription1(desc) {
-//     localConnection.setLocalDescription(desc);
-//     trace('Offer from localConnection \n' + desc.sdp);
-//     remoteConnection.setRemoteDescription(desc);
-//     remoteConnection.createAnswer().then(
-//         gotDescription2,
-//         onCreateSessionDescriptionError
-//     );
-// }
 
 // function gotDescription2(desc) {
 //     remoteConnection.setLocalDescription(desc);
@@ -244,22 +263,22 @@ function todo() {
 //     dataChannelReceive.value = event.data;
 // }
 
-// function onSendChannelStateChange() {
-//     var readyState = sendChannel.readyState;
-//     trace('Send channel state is: ' + readyState);
-//     if (readyState === 'open') {
+function onSendChannelStateChange() {
+    var readyState = sendChannel.readyState;
+    trace('Send channel state is: ' + readyState);
+    if (readyState === 'open') {
 
-//         dataChannelSend.disabled = false;
-//         dataChannelSend.focus();
-//         sendButton.disabled = false;
-//         // app.ports.enableButton.send(true);
-//         closeButton.disabled = false;
-//     } else {
-//         dataChannelSend.disabled = true;
-//         sendButton.disabled = true;
-//         closeButton.disabled = true;
-//     }
-// }
+        dataChannelSend.disabled = false;
+        dataChannelSend.focus();
+        sendButton.disabled = false;
+        // app.ports.enableButton.send(true);
+        closeButton.disabled = false;
+    } else {
+        dataChannelSend.disabled = true;
+        sendButton.disabled = true;
+        closeButton.disabled = true;
+    }
+}
 
 // function onReceiveChannelStateChange() {
 //     var readyState = receiveChannel.readyState;
