@@ -97,14 +97,14 @@ app.ports.rtcPeerConnectionCreateDataChannel.subscribe(function(args) {
 });
 
 
-app.ports.rtcPeerConnectionCreateOffer.subscribe(function(args)) {
-    var [elmLocal,elmRemote,desc] = args;
-    var local = getByIndex(rtcPeerConnections,elmLocal);
-    var remote = getByIndex(rtcPeerConnections,elmRemote);
-    con.createOffer().then(createOfferSuccess.bind(null, local,remote), createOfferFailure);
-    trace('Offer from localConnection \n' + desc.sdp);
-    local.
-}
+// app.ports.rtcPeerConnectionCreateOffer.subscribe(function(args) {
+//     var [elmLocal,elmRemote,desc] = args;
+//     var local = getByIndex(rtcPeerConnections,elmLocal);
+//     var remote = getByIndex(rtcPeerConnections,elmRemote);
+//     con.createOffer().then(createOfferSuccess.bind(null, local,remote), createOfferFailure);
+//     trace('Offer from localConnection \n' + desc.sdp);
+//     // local.
+// });
 
 function createOfferSuccess(local,remote,desc) {
     trace('Offer from localConnection \n' + desc.sdp);

@@ -4,3 +4,5 @@ elm-stuff
 repl-temp-*
 /TAGS
 /elm.js
+/node_modules/
+/package-lock.json
